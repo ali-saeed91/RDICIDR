@@ -44,7 +44,7 @@ jobs:
         run: ssh staging 'cd rdicidr && npm run build -y' 
 
       - name: stop active services
-        run: ssh staging 'sudo pm2 delete all' 
+        run: ssh staging 'sudo pm2 delete all || true' 
 
       - name: Start the app
         timeout-minutes: 1 # Times out after 1 minute
