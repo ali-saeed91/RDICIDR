@@ -44,11 +44,11 @@ jobs:
         run: ssh staging 'cd rdicidr && npm run build -y' 
 
       - name: Build the react app
-        run: ssh staging 'pm2 delete all' 
+        run: ssh staging 'sudo pm2 delete all' 
 
       - name: Start the app
         timeout-minutes: 1 # Times out after 1 minute
-        run: ssh staging 'cd rdicidr && pm2 serve build 80 --spa'
+        run: ssh staging 'cd rdicidr && sudo pm2 serve build 80 --spa'
 
 
 
