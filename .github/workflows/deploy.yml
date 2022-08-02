@@ -35,17 +35,20 @@ jobs:
         run: ssh staging "git pull https://github.com/ali-saeed91/rdicidr.git || true"
            
       - name: Install
-        run: ssh staging 'cd rdicidr && npm install -y'
+        run: ssh staging 'cd rdicidr && git pull && npm install -y'
 
       - name: Lint
         run: ssh staging 'cd rdicidr && npm run lint'
 
-      - name: Kill previous Node
-        run: ssh staging 'sudo killall node' 
+      - name: Build the react app
+        run: ssh staging 'cd rdicidr && npm run build -y' 
+
+      - name: Build the react app
+        run: ssh staging 'pm2 delete all' 
 
       - name: Start the app
         timeout-minutes: 1 # Times out after 1 minute
-        run: ssh staging 'cd rdicidr && npm run start&'
+        run: ssh staging 'cd rdicidr && pm2 serve build 80 --spa'
 
 
 
